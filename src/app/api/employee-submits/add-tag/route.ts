@@ -18,15 +18,14 @@ export async function POST(request: NextRequest) {
     const updatedLeads = [];
     let leadsModified = 0;
 
-    // Process each lead
+    
     for (let i = 0; i < data.leads.length; i++) {
       const lead = data.leads[i];
       const originalTagCount = lead.tags.length;
       
-      // Add the required tags (using Set to prevent duplicates)
+      
       const updatedTags = [...new Set([...lead.tags, ...tagsToAdd])];
       
-      // Only update if new tags were actually added
       if (updatedTags.length > originalTagCount) {
         data.leads[i].tags = updatedTags;
         data.leads[i].lastActivityAt = new Date().toISOString();
@@ -42,7 +41,7 @@ export async function POST(request: NextRequest) {
     // Save the updated data
     await writeJsonData(data);
 
-    // Trigger Inngest workflow with summary data
+   
     await inngest.send({
       name: 'employee/bulk-tags-processed',
       data: {

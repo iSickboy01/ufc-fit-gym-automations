@@ -1,4 +1,4 @@
-export const getWelcomeEmailHTML = (name: string, phoneNumber: string = "(488)-435-9067") => {
+export const getWelcomeEmailHTML = (fullName: string, phoneNumber: string = "(488)-435-9067") => {
   return `<!--
 * This email was built using Tabular.
 * For more information, visit https://tabular.email
@@ -139,11 +139,11 @@ text-decoration: none
 </td></tr></table>
 </td></tr><tr><td><div class="t7" style="mso-line-height-rule:exactly;mso-line-height-alt:30px;line-height:30px;font-size:1px;display:block;">&nbsp;&nbsp;</div></td></tr><tr><td align="center">
 <table class="t11" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;"><tr><td width="600" class="t10" style="width:600px;">
-<table class="t9" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="width:100%;"><tr><td class="t8" style="padding:0 0 25px 0;"><h1 class="t6" style="margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:400;font-style:normal;font-size:28px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;"><span class="t5" style="margin:0;Margin:0;font-weight:700;mso-line-height-rule:exactly;">Welcome to UFC Fit, ${name}!</span></h1></td></tr></table>
+<table class="t9" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="width:100%;"><tr><td class="t8" style="padding:0 0 25px 0;"><h1 class="t6" style="margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:400;font-style:normal;font-size:28px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;"><span class="t5" style="margin:0;Margin:0;font-weight:700;mso-line-height-rule:exactly;">Welcome to UFC Fit, ${fullName}!</span></h1></td></tr></table>
 </td></tr></table>
 </td></tr><tr><td><div class="t12" style="mso-line-height-rule:exactly;mso-line-height-alt:20px;line-height:20px;font-size:1px;display:block;">&nbsp;&nbsp;</div></td></tr><tr><td align="center">
 <table class="t17" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;"><tr><td width="600" class="t16" style="width:600px;">
-<table class="t15" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="width:100%;"><tr><td class="t14" style="padding:0 0 22px 0;"><p class="t13" style="margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:700;font-style:normal;font-size:18px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:1px;">Hey ${name},</p></td></tr></table>
+<table class="t15" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="width:100%;"><tr><td class="t14" style="padding:0 0 22px 0;"><p class="t13" style="margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:700;font-style:normal;font-size:18px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:1px;">Hey ${fullName},</p></td></tr></table>
 </td></tr></table>
 </td></tr><tr><td align="center">
 <table class="t22" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;"><tr><td width="600" class="t21" style="width:600px;">

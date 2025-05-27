@@ -68,7 +68,8 @@ export async function POST(req: Request) {
       submittedAt: new Date().toISOString(),
       source: 'web-form',
       companyName: '',
-      gymLocation: ''
+      gymLocation: '',
+      employeeKey: ''
     });
 
 

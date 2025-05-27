@@ -52,7 +52,7 @@ function KeyForgotPage() {
 
       // Show success message
       setSuccess(true);
-      setEmail(''); // Clear the form
+      setEmail(''); 
       
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while recovering your key');

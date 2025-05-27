@@ -1,5 +1,5 @@
-export const teamNotificationEmailHTML = (name: string, phoneNumber: string = "(488)-435-9067", emailAddress: string = "doctorsimpsonswag@gmail.com",
-fullAddress: string = "UFCFit Oakridge Mall 5540 Winfield Ave #1000 San Jose, CA"
+export const teamNotificationEmailHTML = (name: string, phoneNumber: string, emailAddress: string,
+fullAddress: string
 ) => {
     return `<!--
 * This email was built using Tabular.

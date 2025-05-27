@@ -6,7 +6,8 @@ export interface LeadActivity {
   id: string;
   type: 'email_sent' | 'sms_sent' | 'tag_added' | 'tag_removed' | 'digital_pass_clicked' | 
         'team_notification' | 'app_notification' | 'google_sheets_sync' | 'reminder_email_sent' | 
-        'workflow_completed' | 'custom' | 'reminder_email_failed' | 'tagActivity' | 'employee_key_email_sent' | 'employee_key_email_failed';
+        'workflow_completed' | 'custom' | 'reminder_email_failed' | 'tagActivity' | 'employee_key_email_sent' | 'employee_key_email_failed' | 
+        'employee_key_confirmation_sent' | 'employee_key_confirmation_failed' | 'employee_key_recovery_sent' | 'employee_key_recovery_failed';
   description: string;
   timestamp: string;
   metadata?: Record<string, any>;
@@ -26,8 +27,9 @@ export interface LeadData {
     postalCode: string;
     full: string;
   };
-  companyName : string;
-  gymLocation : string;
+  companyName: string;
+  gymLocation: string;
+  employeeKey: string;
   submittedAt: string;
   source?: string;
   tags: string[];
