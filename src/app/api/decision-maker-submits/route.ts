@@ -8,7 +8,12 @@ interface FormData {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   phone: string;
+  companyName: string;
+  jobTitle: string;
+  gymLocation: string;
+  employeeListSize: string;
   address: string;
   city: string;
   state: string;
@@ -22,7 +27,12 @@ export async function POST(req: Request) {
       firstName, 
       lastName, 
       email, 
+      password,
       phone, 
+      companyName,
+      jobTitle,
+      gymLocation,
+      employeeListSize,
       address, 
       city, 
       state, 
@@ -34,7 +44,12 @@ export async function POST(req: Request) {
       firstName,
       lastName,
       email,
+      password,
       phone,
+      companyName,
+      jobTitle,
+      gymLocation,
+      employeeListSize,
       address,
       city,
       state,
@@ -51,6 +66,7 @@ export async function POST(req: Request) {
       }, { status: 400 });
     }
 
+
     // Upsert lead (create new or update existing)
     const savedLead = await upsertLead({
       firstName,
@@ -66,19 +82,18 @@ export async function POST(req: Request) {
         full: `${address}, ${city}, ${state} ${postalCode}`
       },
       submittedAt: new Date().toISOString(),
-      source: 'web-form',
-      companyName: '',
-      gymLocation: '',
+      source: 'decision-maker-form',
+      companyName,
+      jobTitle,
+      gymLocation,
+      employeeListSize,
       employeeKey: '',
-      jobTitle: '',
-      employeeListSize: '',
-      hasPassword: true  
+      hasPassword: true 
     });
 
-
-   
+    // Send Inngest event
     await inngest.send({
-      name: 'app/lead.submitted',
+      name: 'app/decision-maker.registered',
       data: {
         leadId: savedLead.id, 
         firstName,
@@ -86,6 +101,11 @@ export async function POST(req: Request) {
         fullName: `${firstName} ${lastName}`,
         email,
         phone,
+        companyName,
+        employeeKey: '',
+        jobTitle,
+        gymLocation,
+        employeeListSize,
         address: {
           street: address,
           city,
@@ -98,11 +118,21 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ 
-      message: 'Contact information submitted successfully',
-      leadId: savedLead.id
+      message: 'Decision maker registration completed successfully',
+      leadId: savedLead.id,
+      freeMonths: employeeListSize.includes('6-49') ? 1 :
+                  employeeListSize.includes('50-99') ? 2 :
+                  employeeListSize.includes('100-249') ? 3 :
+                  employeeListSize.includes('250-499') ? 4 :
+                  employeeListSize.includes('500-999') ? 5 :
+                  employeeListSize.includes('1000-1999') ? 6 :
+                  employeeListSize.includes('2000-2999') ? 7 :
+                  employeeListSize.includes('3000-3999') ? 8 :
+                  employeeListSize.includes('4000-4999') ? 9 :
+                  employeeListSize.includes('5000+') ? 12 : 0
     });
   } catch (error) {
-    console.error('Error processing form submission:', error);
+    console.error('Error processing decision maker registration:', error);
     return NextResponse.json({ 
       error: 'Internal server error' 
     }, { status: 500 });

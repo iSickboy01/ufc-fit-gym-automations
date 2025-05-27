@@ -29,6 +29,9 @@ export interface LeadData {
   };
   companyName: string;
   gymLocation: string;
+  jobTitle: string;
+  employeeListSize: string;
+  hasPassword: boolean;
   employeeKey: string;
   submittedAt: string;
   source?: string;

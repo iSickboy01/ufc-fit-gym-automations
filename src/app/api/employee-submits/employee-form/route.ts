@@ -70,6 +70,9 @@ interface FormData {
             employeeKey,
             submittedAt: new Date().toISOString(),
             source: 'web-form',
+            jobTitle: '',
+            employeeListSize: '',
+            hasPassword: true 
         });
 
 
