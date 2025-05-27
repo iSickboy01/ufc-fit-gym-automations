@@ -7,7 +7,7 @@ export interface LeadActivity {
   type: 'email_sent' | 'sms_sent' | 'tag_added' | 'tag_removed' | 'digital_pass_clicked' | 
         'team_notification' | 'app_notification' | 'google_sheets_sync' | 'reminder_email_sent' | 
         'workflow_completed' | 'custom' | 'reminder_email_failed' | 'tagActivity' | 'employee_key_email_sent' | 'employee_key_email_failed' | 
-        'employee_key_confirmation_sent' | 'employee_key_confirmation_failed' | 'employee_key_recovery_sent' | 'employee_key_recovery_failed';
+        'employee_key_confirmation_sent' | 'employee_key_confirmation_failed' | 'employee_key_recovery_sent' | 'employee_key_recovery_failed' | 'confirmation_email_sent';
   description: string;
   timestamp: string;
   metadata?: Record<string, any>;
@@ -27,12 +27,19 @@ export interface LeadData {
     postalCode: string;
     full: string;
   };
-  companyName: string;
+  companyName:string;
   gymLocation: string;
   jobTitle: string;
   employeeListSize: string;
   hasPassword: boolean;
   employeeKey: string;
+  companyAddress: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    full: string;
+  };
   submittedAt: string;
   source?: string;
   tags: string[];
@@ -211,52 +218,77 @@ export async function addLead(leadData: Omit<LeadData, 'id' | 'tags' | 'activiti
 }
 
 // Add or update lead
-export async function upsertLead(leadData: Omit<LeadData, 'id' | 'tags' | 'activities' | 'status' | 'lastActivityAt'>): Promise<LeadData> {
-    try {
-      // Check if lead already exists by email
-      const existingLeads = await getLeadsByEmail(leadData.email);
+export async function upsertLead(leadData: {
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    full: string;
+  };
+  companyName: string;
+  companyAddress: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    full: string;
+  };
+  gymLocation: string;
+  employeeKey: string;
+  source: string;
+  jobTitle: string;
+  submittedAt: string;
+  employeeListSize: string;
+  hasPassword: boolean;
+}): Promise<any> {
+  try {
+    // Check if lead already exists by email
+    const existingLeads = await getLeadsByEmail(leadData.email);
+    
+    if (existingLeads.length > 0) {
+      console.log(`Lead with email ${leadData.email} already exists, updating instead of creating duplicate`);
       
-      if (existingLeads.length > 0) {
-        console.log(`Lead with email ${leadData.email} already exists, updating instead of creating duplicate`);
+      const existingLead = existingLeads[0];
+      const data = await readJsonData();
+      const leadIndex = data.leads.findIndex(lead => lead.id === existingLead.id);
+      
+      if (leadIndex !== -1) {
+        data.leads[leadIndex] = {
+          ...data.leads[leadIndex],
+          ...leadData,
+          lastActivityAt: new Date().toISOString()
+        };
         
-       
-        const existingLead = existingLeads[0];
-        const data = await readJsonData();
-        const leadIndex = data.leads.findIndex(lead => lead.id === existingLead.id);
+        const updateActivity: LeadActivity = {
+          id: `activity_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          type: 'custom',
+          description: 'Lead information updated',
+          timestamp: new Date().toISOString(),
+          metadata: { action: 'upsert' }
+        };
         
-        if (leadIndex !== -1) {
-          
-          data.leads[leadIndex] = {
-            ...data.leads[leadIndex],
-            ...leadData,
-            lastActivityAt: new Date().toISOString()
-          };
-          
-          
-          const updateActivity: LeadActivity = {
-            id: `activity_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-            type: 'custom',
-            description: 'Lead information updated',
-            timestamp: new Date().toISOString(),
-            metadata: { action: 'upsert' }
-          };
-          
-          data.leads[leadIndex].activities.push(updateActivity);
-          
-          await writeJsonData(data);
-          console.log(`Lead updated: ${existingLead.id}`);
-          return data.leads[leadIndex];
-        }
+        data.leads[leadIndex].activities.push(updateActivity);
+        
+        await writeJsonData(data);
+        console.log(`Lead updated: ${existingLead.id}`);
+        return data.leads[leadIndex];
       }
-      
-     
-      return await addLead(leadData);
-      
-    } catch (error) {
-      console.error('Error upserting lead:', error);
-      throw new Error('Failed to upsert lead');
     }
+    
+    // If no existing lead found, create a new one
+    return await addLead(leadData);
+    
+  } catch (error) {
+    console.error('Error upserting lead:', error);
+    throw new Error('Failed to upsert lead');
   }
+}
 
 // Update lead tags
 export async function updateLeadTags(

@@ -14,7 +14,7 @@ interface FormData {
   jobTitle: string;
   gymLocation: string;
   employeeListSize: string;
-  address: string;
+  companyAddress: string;
   city: string;
   state: string;
   postalCode: string;
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       jobTitle,
       gymLocation,
       employeeListSize,
-      address, 
+      companyAddress, 
       city, 
       state, 
       postalCode 
@@ -50,10 +50,10 @@ export async function POST(req: Request) {
       jobTitle,
       gymLocation,
       employeeListSize,
-      address,
       city,
       state,
-      postalCode
+      postalCode,
+      companyAddress,
     };
 
     const missingFields = Object.entries(requiredFields)
@@ -75,11 +75,18 @@ export async function POST(req: Request) {
       email,
       phone,
       address: {
-        street: address,
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        full: ''
+      },
+      companyAddress: {
+        street: companyAddress,
         city,
         state,
         postalCode,
-        full: `${address}, ${city}, ${state} ${postalCode}`
+        full: `${companyAddress}, ${city}, ${state} ${postalCode}`
       },
       submittedAt: new Date().toISOString(),
       source: 'decision-maker-form',
@@ -106,13 +113,7 @@ export async function POST(req: Request) {
         jobTitle,
         gymLocation,
         employeeListSize,
-        address: {
-          street: address,
-          city,
-          state,
-          postalCode,
-          full: `${address}, ${city}, ${state} ${postalCode}`
-        },
+        companyAddress,
         submittedAt: savedLead.submittedAt,
       },
     });

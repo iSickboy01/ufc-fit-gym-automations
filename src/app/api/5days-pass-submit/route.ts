@@ -72,7 +72,14 @@ export async function POST(req: Request) {
       employeeKey: '',
       jobTitle: '',
       employeeListSize: '',
-      hasPassword: true  
+      hasPassword: true,
+      companyAddress: {
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        full: ''
+    },  
     });
 
 

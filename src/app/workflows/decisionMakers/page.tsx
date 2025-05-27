@@ -12,10 +12,10 @@ interface FormData {
   jobTitle: string;
   gymLocation: string;
   employeeListSize: string;
-  address: string;
   city: string;
   state: string;
   postalCode: string;
+  companyAddress: string;
 }
 
 export default function DecisionMakersPage() {
@@ -29,10 +29,10 @@ export default function DecisionMakersPage() {
     jobTitle: '',
     gymLocation: '',
     employeeListSize: '',
-    address: '', 
     city: '', 
     state: '', 
-    postalCode: '' 
+    postalCode: '',
+    companyAddress: '' 
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -107,7 +107,7 @@ export default function DecisionMakersPage() {
         return value ? '' : 'Please select a gym location';
       case 'employeeListSize':
         return value ? '' : 'Please select employee list size';
-      case 'address':
+      case 'companyAddress':
         return value.trim().length >= 5 ? '' : 'Address must be at least 5 characters';
       case 'city':
         return value.trim().length >= 2 ? '' : 'City must be at least 2 characters';
@@ -170,10 +170,10 @@ export default function DecisionMakersPage() {
           jobTitle: '',
           gymLocation: '',
           employeeListSize: '',
-          address: '', 
           city: '', 
           state: '', 
-          postalCode: '' 
+          postalCode: '',
+          companyAddress: '' 
         });
         setErrors({});
       }
@@ -392,19 +392,19 @@ export default function DecisionMakersPage() {
         {/* Address Field */}
         <div>
           <label className="block text-black text-sm font-medium mb-2">
-            Street Address *
+            Company Address *
           </label>
           <input
             name="address"
             type="text"
             placeholder="123 Business Blvd"
-            value={form.address}
+            value={form.companyAddress}
             onChange={handleChange}
-            className={inputClass('address')}
+            className={inputClass('companyAddress')}
             required
           />
-          {errors.address && (
-            <p className="text-red-500 text-sm mt-1">{errors.address}</p>
+          {errors.companyAddress && (
+            <p className="text-red-500 text-sm mt-1">{errors.companyAddress}</p>
           )}
         </div>
 

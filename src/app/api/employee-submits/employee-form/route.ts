@@ -65,14 +65,21 @@ interface FormData {
                 postalCode: '',
                 full: ''
             },
-            companyName,
+            companyName:'',
             gymLocation,
             employeeKey,
             submittedAt: new Date().toISOString(),
             source: 'web-form',
             jobTitle: '',
             employeeListSize: '',
-            hasPassword: true 
+            hasPassword: true,
+            companyAddress: {
+              street: '',
+              city: '',
+              state: '',
+              postalCode: '',
+              full: ''
+          },
         });
 
 
