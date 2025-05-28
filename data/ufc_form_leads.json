@@ -991,10 +991,23 @@
             "recipientEmail": "doctorsimpsonswag@gmail.com",
             "keyFound": true
           }
+        },
+        {
+          "id": "activity_1748437088988_kqijmtfxb",
+          "type": "employee_key_email_sent",
+          "description": "Employee key generation email sent",
+          "timestamp": "2025-05-28T12:58:08.983Z",
+          "metadata": {
+            "emailId": "fa3a367f-106b-488e-a786-0a0e655328ea",
+            "subject": "Generate Your Employee Access Key",
+            "template": "employee-key",
+            "recipientEmail": "doctorsimpsonswag@gmail.com",
+            "employeeKeyUrl": "http://localhost:3000/employee-key-generation?leadId=lead_1748053442450_aozocm3qd"
+          }
         }
       ],
       "status": "new",
-      "lastActivityAt": "2025-05-26T19:12:01.276Z",
+      "lastActivityAt": "2025-05-28T12:58:08.983Z",
       "companyName": "Demystify",
       "gymLocation": "San Jose",
       "employeeKey": "v45898905"
@@ -1021,7 +1034,10 @@
       "employeeListSize": "6-49",
       "employeeKey": "",
       "hasPassword": true,
-      "tags": [],
+      "tags": [
+        "vemployee",
+        "employee-added"
+      ],
       "activities": [
         {
           "id": "activity_1748367394026_x888567jo",
@@ -1031,15 +1047,27 @@
           "metadata": {
             "source": "decision-maker-form"
           }
+        },
+        {
+          "id": "activity_1748437089325_yiy9cyv9f",
+          "type": "employee_key_email_sent",
+          "description": "Employee key generation email sent",
+          "timestamp": "2025-05-28T12:58:09.321Z",
+          "metadata": {
+            "subject": "Generate Your Employee Access Key",
+            "template": "employee-key",
+            "recipientEmail": "ayenivictoria05@gmail.com",
+            "employeeKeyUrl": "http://localhost:3000/employee-key-generation?leadId=lead_1748367394026_zgzhi7f5j"
+          }
         }
       ],
       "status": "new",
-      "lastActivityAt": "2025-05-27T17:36:34.026Z"
+      "lastActivityAt": "2025-05-28T12:58:09.321Z"
     }
   ],
   "metadata": {
     "created": "2025-05-24T02:24:02.425Z",
-    "lastUpdated": "2025-05-27T17:36:34.026Z",
+    "lastUpdated": "2025-05-28T12:58:09.325Z",
     "totalCount": 2
   }
 }
